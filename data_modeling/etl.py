@@ -2,16 +2,22 @@
 This module provides methods to load the raw data, prepare it and
 store it in the data warehouse.
 """
-from tqdm import tqdm
+import logging
 
 import cql_queries
 from db import create_session, insert
 from etl_steps.prepare import PreparerQuery1, PreparerQuery2, \
     PreparerQuery3
-from etl_steps.read import get_files, read_file
+from utils import read_file
+
+
+logging.basicConfig(filename='etl.log',level=logging.DEBUG)
 
 
 def process_query_1(session, filepath):
+    """
+    Prepares data for table query_1.
+    """
     preparer = PreparerQuery1()
     values = read_file(filepath)
     prepared_values = preparer.transform(values)
@@ -19,6 +25,9 @@ def process_query_1(session, filepath):
 
 
 def process_query_2(session, filepath):
+    """
+    Prepares data for table query_2.
+    """
     preparer = PreparerQuery2()
     values = read_file(filepath)
     prepared_values = preparer.transform(values)
@@ -26,6 +35,9 @@ def process_query_2(session, filepath):
 
 
 def process_query_3(session, filepath):
+    """
+    Prepares data for table query3.
+    """
     preparer = PreparerQuery3()
     values = read_file(filepath)
     prepared_values = preparer.transform(values)
@@ -41,17 +53,8 @@ def process_data(session, filepath, funcs):
         filepath: a string filepath.
         func: a function that processes the filepath.
     """
-    # get all files matching extension from directory
-    all_files = get_files(filepath)
-
-    # get total number of files found
-    num_files = len(all_files)
-    print('{} files found in {}'.format(num_files, filepath))
-
-    # iterate over files and process
-    for datafile in tqdm(all_files):
-        for func in funcs:
-            func(session, datafile)
+    for func in funcs:
+        func(session, filepath)
 
 
 def main():
@@ -60,11 +63,12 @@ def main():
     and processes song- and log files.
     """
     funcs = [process_query_1, process_query_2, process_query_3]
+    print("Creating connection...")
     cluster, session = create_session()
     session.set_keyspace('sparkifydb')
-
-    process_data(session, "../data/event_data", funcs)
-
+    print("Inserting data...")
+    process_data(session, "../data/event_data_new.csv", funcs)
+    print("Closing connection...")
     session.shutdown()
     cluster.shutdown()
 

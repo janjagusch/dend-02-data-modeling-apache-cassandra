@@ -8,6 +8,9 @@ import pandas as pd
 
 
 def _types_to_native(values):
+    """
+    Converts numpy types to native types.
+    """
     native_values = values.apply(
         lambda x: x.items() if isinstance(x, np.generic) else x, axis=1)
     native_values = native_values.where(native_values.notnull(), None)
@@ -15,6 +18,9 @@ def _types_to_native(values):
 
 
 def _dataframe_to_dict(dataframe):
+    """
+    Converts pandas dataframe to dictionary.
+    """
     return dataframe.to_dict("records")
 
 
@@ -30,6 +36,9 @@ class Preparer:
         raise NotImplementedError
 
     def format(self, values):
+        """
+        Applies any post formatting, if necessary.
+        """
         pass
 
     def transform(self, values):
@@ -47,6 +56,9 @@ class Preparer:
 
 
 class PreparerQuery1(Preparer):
+    """
+    A preparer class for the query_1 table.
+    """
 
     def prepare(self, values):
         prepared_values = values[["artist", "song", "length", "sessionId",
@@ -57,6 +69,9 @@ class PreparerQuery1(Preparer):
 
 
 class PreparerQuery2(Preparer):
+    """
+    A preparer class for the query_2 table.
+    """
 
     def prepare(self, values):
         prepared_values = values[["artist", "song", "firstName", "lastName",
@@ -72,6 +87,9 @@ class PreparerQuery2(Preparer):
 
 
 class PreparerQuery3(Preparer):
+    """
+    A preparer class for the query_3 table.
+    """
 
     def prepare(self, values):
         prepared_values = values[["song", "firstName", "lastName", "userId"]]

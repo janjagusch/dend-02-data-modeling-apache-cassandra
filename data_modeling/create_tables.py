@@ -42,13 +42,16 @@ def main():
     First, creates databse and establishes connection.
     Then, drops all tables and re-creates them.
     """
+    print("Creating connection...")
     cluster, session = create_database()
-
+    print("Dropping old tables...")
     drop_tables(session)
+    print("Creating new tables...")
     create_tables(session)
-
+    print("Closing connection...")
     session.shutdown()
     cluster.shutdown()
+    print("Done.")
 
 if __name__ == "__main__":
     main()

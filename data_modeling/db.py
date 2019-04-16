@@ -1,8 +1,17 @@
+"""
+This module provides methods to interact with Cassandra.
+"""
+import json
+import logging
+
 from cassandra.cluster import Cluster
 from cassandra import InvalidRequest
 
 
 def create_session():
+    """
+    Creates a session with a local cluster.
+    """
     cluster = Cluster(['127.0.0.1'])
     session = cluster.connect()
     return cluster, session
@@ -16,4 +25,4 @@ def insert(query, records, session):
         try:
             session.execute(query, record)
         except InvalidRequest as e:
-            pass
+            logging.exception(json.dumps(record))
