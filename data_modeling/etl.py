@@ -71,6 +71,7 @@ def main():
     print("Closing connection...")
     session.shutdown()
     cluster.shutdown()
+    print("Done.")
 
 
 if __name__ == "__main__":

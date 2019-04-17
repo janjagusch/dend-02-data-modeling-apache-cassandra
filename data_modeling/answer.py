@@ -35,7 +35,7 @@ def main():
     for i, answer in enumerate(answers, 1):
         with open("../answers/query_{}.txt".format(i), "w") as file_pointer:
             file_pointer.write(tabulate(answer, tablefmt="pipe", headers="keys"))
-
+    return answers
 
 if __name__ == "__main__":
     main()

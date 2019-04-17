@@ -68,8 +68,7 @@ INSERT INTO song_in_session (
                      item_in_session,
                      artist_name,
                      song_title,
-                     song_duration
-                     )
+                     song_duration)
 VALUES (
         %(session_id)s,
         %(item_in_session)s,
@@ -87,8 +86,7 @@ INSERT INTO song_in_user (
                      artist_name,
                      song_title,
                      user_first_name,
-                     user_last_name
-                     )
+                     user_last_name)
 VALUES (
         %(user_id)s,
         %(session_id)s,
@@ -105,8 +103,7 @@ INSERT INTO user_in_song (
                      song_title,
                      user_id,
                      user_first_name,
-                     user_last_name
-                     )
+                     user_last_name)
 VALUES (
         %(song_title)s,
         %(user_id)s,
@@ -151,3 +148,5 @@ CREATE_TABLE_QUERIES = [QUERY_1_TABLE_CREATE, QUERY_2_TABLE_CREATE,
                         QUERY_3_TABLE_CREATE]
 
 SELECT_TABLE_QUERIES = [QUERY_1_SELECT, QUERY_2_SELECT, QUERY_3_SELECT]
+
+INSERT_TABLE_QUERIES = [QUERY_1_TABLE_INSERT, QUERY_2_TABLE_INSERT, QUERY_3_TABLE_INSERT]
