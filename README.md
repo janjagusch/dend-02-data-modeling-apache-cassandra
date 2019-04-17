@@ -51,7 +51,7 @@ Give me the artist, song title and song's length in the music app history that w
 SELECT artist_name,
        song_title,
        song_duration
-  FROM query_1
+  FROM song_in_session
  WHERE session_id=338
    AND item_in_session=4;
 ```
@@ -67,7 +67,7 @@ SELECT artist_name,
        song_title,
        user_first_name,
        user_last_name
-  FROM query_2
+  FROM song_in_user
  WHERE user_id=10
    AND session_id=182;
 ```
@@ -84,7 +84,7 @@ Give me every user name (first and last) in my music app history who listened to
 ```
 SELECT user_first_name,
        user_last_name
-  FROM query_3
+  FROM user_in_song
  WHERE song_title = 'All Hands Against His Own';
 ```
 

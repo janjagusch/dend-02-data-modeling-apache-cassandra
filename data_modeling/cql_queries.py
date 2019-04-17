@@ -11,17 +11,17 @@ DROP KEYSPACE IF EXISTS sparkifydb;
 
 
 # DROP QUERIES
-QUERY_1_TABLE_DROP = """DROP TABLE IF EXISTS query_1;"""
+QUERY_1_TABLE_DROP = """DROP TABLE IF EXISTS song_in_session;"""
 
-QUERY_2_TABLE_DROP = """DROP TABLE IF EXISTS query_2;"""
+QUERY_2_TABLE_DROP = """DROP TABLE IF EXISTS song_in_user;"""
 
-QUERY_3_TABLE_DROP = """DROP TABLE IF EXISTS query_3;"""
+QUERY_3_TABLE_DROP = """DROP TABLE IF EXISTS user_in_song;"""
 
 
 # CREATE QUERIES
 QUERY_1_TABLE_CREATE = (
 """
-CREATE TABLE IF NOT EXISTS query_1 (artist_name VARCHAR,
+CREATE TABLE IF NOT EXISTS song_in_session (artist_name VARCHAR,
                                     song_title VARCHAR,
                                     song_duration DECIMAL,
                                     session_id INT,
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS query_1 (artist_name VARCHAR,
 
 QUERY_2_TABLE_CREATE = (
 """
-CREATE TABLE IF NOT EXISTS query_2 (artist_name VARCHAR,
+CREATE TABLE IF NOT EXISTS song_in_user (artist_name VARCHAR,
                                     song_title VARCHAR,
                                     user_first_name VARCHAR,
                                     user_last_name VARCHAR,
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS query_2 (artist_name VARCHAR,
 
 QUERY_3_TABLE_CREATE = (
 """
-CREATE TABLE IF NOT EXISTS query_3 (song_title VARCHAR,
+CREATE TABLE IF NOT EXISTS user_in_song (song_title VARCHAR,
                                     user_first_name VARCHAR,
                                     user_last_name VARCHAR,
                                     user_id INT,
@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS query_3 (song_title VARCHAR,
 
 # INSERT QUERIES
 QUERY_1_TABLE_INSERT = ("""
-INSERT INTO query_1 (artist_name,
+INSERT INTO song_in_session (artist_name,
                      song_title,
                      song_duration,
                      session_id,
@@ -74,7 +74,7 @@ VALUES (%(artist_name)s,
 """)
 
 QUERY_2_TABLE_INSERT = ("""
-INSERT INTO query_2 (artist_name,
+INSERT INTO song_in_user (artist_name,
                      song_title,
                      user_first_name,
                      user_last_name,
@@ -91,7 +91,7 @@ VALUES (%(artist_name)s,
 """)
 
 QUERY_3_TABLE_INSERT = ("""
-INSERT INTO query_3 (song_title,
+INSERT INTO user_in_song (song_title,
                      user_first_name,
                      user_last_name,
                      user_id)
@@ -107,7 +107,7 @@ QUERY_1_SELECT = ("""
 SELECT artist_name,
        song_title,
        song_duration
-  FROM query_1
+  FROM song_in_session
  WHERE session_id=338
    AND item_in_session=4;
 """)
@@ -117,7 +117,7 @@ SELECT artist_name,
        song_title,
        user_first_name,
        user_last_name
-  FROM query_2
+  FROM song_in_user
  WHERE user_id=10
    AND session_id=182;
 """)
@@ -125,7 +125,7 @@ SELECT artist_name,
 QUERY_3_SELECT = ("""
 SELECT user_first_name,
        user_last_name
-  FROM query_3
+  FROM user_in_song
  WHERE song_title = 'All Hands Against His Own';
 """)
 
