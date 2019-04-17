@@ -21,11 +21,12 @@ QUERY_3_TABLE_DROP = """DROP TABLE IF EXISTS user_in_song;"""
 # CREATE QUERIES
 QUERY_1_TABLE_CREATE = (
 """
-CREATE TABLE IF NOT EXISTS song_in_session (artist_name VARCHAR,
-                                    song_title VARCHAR,
-                                    song_duration DECIMAL,
+CREATE TABLE IF NOT EXISTS song_in_session (
                                     session_id INT,
                                     item_in_session INT,
+                                    artist_name VARCHAR,
+                                    song_title VARCHAR,
+                                    song_duration DECIMAL,
                                     PRIMARY KEY(session_id,
                                                 item_in_session)
                                     );
@@ -33,13 +34,14 @@ CREATE TABLE IF NOT EXISTS song_in_session (artist_name VARCHAR,
 
 QUERY_2_TABLE_CREATE = (
 """
-CREATE TABLE IF NOT EXISTS song_in_user (artist_name VARCHAR,
-                                    song_title VARCHAR,
-                                    user_first_name VARCHAR,
-                                    user_last_name VARCHAR,
+CREATE TABLE IF NOT EXISTS song_in_user (
                                     user_id INT,
                                     session_id INT,
                                     item_in_session INT,
+                                    artist_name VARCHAR,
+                                    song_title VARCHAR,
+                                    user_first_name VARCHAR,
+                                    user_last_name VARCHAR,
                                     PRIMARY KEY(user_id,
                                                 session_id,
                                                 item_in_session)
@@ -48,57 +50,69 @@ CREATE TABLE IF NOT EXISTS song_in_user (artist_name VARCHAR,
 
 QUERY_3_TABLE_CREATE = (
 """
-CREATE TABLE IF NOT EXISTS user_in_song (song_title VARCHAR,
+CREATE TABLE IF NOT EXISTS user_in_song (
+                                    song_title VARCHAR,
+                                    user_id INT,
                                     user_first_name VARCHAR,
                                     user_last_name VARCHAR,
-                                    user_id INT,
                                     PRIMARY KEY(song_title,
-                                                user_id
-                                                )
+                                                user_id)
                                     );
 """)
 
 
 # INSERT QUERIES
 QUERY_1_TABLE_INSERT = ("""
-INSERT INTO song_in_session (artist_name,
-                     song_title,
-                     song_duration,
+INSERT INTO song_in_session (
                      session_id,
-                     item_in_session)
-VALUES (%(artist_name)s,
-        %(song_title)s,
-        %(song_duration)s,
+                     item_in_session,
+                     artist_name,
+                     song_title,
+                     song_duration
+                     )
+VALUES (
         %(session_id)s,
-        %(item_in_session)s);
+        %(item_in_session)s,
+        %(artist_name)s,
+        %(song_title)s,
+        %(song_duration)s
+        );
 """)
 
 QUERY_2_TABLE_INSERT = ("""
-INSERT INTO song_in_user (artist_name,
-                     song_title,
-                     user_first_name,
-                     user_last_name,
+INSERT INTO song_in_user (
                      user_id,
                      session_id,
-                     item_in_session)
-VALUES (%(artist_name)s,
-        %(song_title)s,
-        %(user_first_name)s,
-        %(user_last_name)s,
+                     item_in_session,
+                     artist_name,
+                     song_title,
+                     user_first_name,
+                     user_last_name
+                     )
+VALUES (
         %(user_id)s,
         %(session_id)s,
-        %(item_in_session)s);
+        %(item_in_session)s,
+        %(artist_name)s,
+        %(song_title)s,
+        %(user_first_name)s,
+        %(user_last_name)s
+        );
 """)
 
 QUERY_3_TABLE_INSERT = ("""
-INSERT INTO user_in_song (song_title,
+INSERT INTO user_in_song (
+                     song_title,
+                     user_id,
                      user_first_name,
-                     user_last_name,
-                     user_id)
-VALUES (%(song_title)s,
+                     user_last_name
+                     )
+VALUES (
+        %(song_title)s,
+        %(user_id)s,
         %(user_first_name)s,
-        %(user_last_name)s,
-        %(user_id)s);
+        %(user_last_name)s
+        );
 """)
 
 
